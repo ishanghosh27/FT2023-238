@@ -2,6 +2,22 @@
 
 include_once('nav.php');
 
+$uiderror = $_GET['uiderror'] ?? [];
+$fnameerror = $_GET['nameerror'] ?? [];
+$lnameerror = $_GET['nameerror'] ?? [];
+$phoneerror = $_GET['phoneerror'] ?? [];
+$emailerror = $_GET['emailerror'] ?? [];
+$passerror = $_GET['passerror'] ?? [];
+$signup = $_GET['signedup'] ?? [];
+
+$uidError = $uiderror['username'] ?? '';
+$fnameError = $fnameerror['fname'] ?? '';
+$lnameError = $lnameerror['lname'] ?? '';
+$phoneError = $phoneerror['phone'] ?? '';
+$emailError = $emailerror['email'] ?? '';
+$passError = $passerror['pass'] ?? '';
+$signupSuccess = $signup['submit'] ?? '';
+
 ?>
 
 <!doctype html>
@@ -15,7 +31,7 @@ include_once('nav.php');
 </head>
 
 <body>
-  <form class="row g-3 my-5" enctype="multipart/form-data" action="#" method="post" id="signupform">
+  <form class="row g-3 my-5" enctype="multipart/form-data" action="class/ValidateData.php" method="post" id="signupform">
     <div class="mx-auto col-10 col-md-8 col-lg-6">
       <div class="col-auto">
         <label class="visually-hidden" for="autoSizingInputGroup">Username</label>
@@ -23,24 +39,30 @@ include_once('nav.php');
           <div class="input-group-text">@</div>
           <input type="text" class="form-control" id="autoSizingInputGroup" placeholder="Enter Your Username" name="username">
         </div>
-        <div class="error my-1 text-danger">
-          <?php echo $_GET['username'] ?? ''; ?>
-        </div>
+        <?php if (!empty($uidError)) : ?>
+          <div class="alert alert-danger my-1 text-danger" role="alert">
+            <?php echo $uidError ?>
+          </div>
+        <?php endif; ?>
       </div>
       <div class="row g-3 my-1">
         <div class="col-sm-6">
           <label class="form-label" for="specificSizeInputName">First Name</label>
           <input type="text" class="form-control" id="fname" placeholder="Enter First Name" name="fname">
-          <div class="error my-1 text-danger">
-            <?php echo $_GET['name'] ?? $_GET['fname'] ?? ''; ?>
-          </div>
+          <?php if (!empty($fnameError)) : ?>
+            <div class="alert alert-danger my-1 text-danger" role="alert">
+              <?php echo $fnameError ?>
+            </div>
+          <?php endif; ?>
         </div>
         <div class="col-sm-6">
           <label class="form-label" for="specificSizeInputName">Last Name</label>
           <input type="text" class="form-control" id="lname" placeholder="Enter Last Name" name="lname">
-          <div class="error my-1 text-danger">
-            <?php echo $_GET['name'] ?? $_GET['lname'] ?? ''; ?>
-          </div>
+          <?php if (!empty($lnameError)) : ?>
+            <div class="alert alert-danger my-1 text-danger" role="alert">
+              <?php echo $lnameError ?>
+            </div>
+          <?php endif; ?>
         </div>
       </div>
       <div class="row my-3">
@@ -51,42 +73,46 @@ include_once('nav.php');
       </div>
       <div class="row my-3">
         <div class="col-sm-12">
-          <label class="form-label" for="customFile">Upload Profile Picture</label>
-          <input type="file" class="form-control" id="img" class="img">
-        </div>
-      </div>
-      <div class="row my-3">
-        <div class="form-group">
-          <label class="form-label" for="exampleFormControlTextarea1">Subject | Marks</label>
-          <textarea class="form-control" name="marks" id="marks" rows="3" placeholder="Enter Subject|Marks"></textarea>
-        </div>
-      </div>
-      <div class="row my-3">
-        <div class="col-sm-12">
           <label class="form-label" for="autoSizingInputGroup">Phone Number</label>
           <div class="input-group">
             <div class="input-group-text">+91</div>
             <input type="text" class="form-control" id="phone" placeholder="Enter Your Phone Number" name="phone">
           </div>
+          <?php if (!empty($phoneError)) : ?>
+            <div class="alert alert-danger my-1 text-danger" role="alert">
+              <?php echo $phoneError ?>
+            </div>
+          <?php endif; ?>
         </div>
       </div>
       <div class="col-md-12 my-3">
         <label for="inputEmail4" class="form-label">Email</label>
         <input type="email" class="form-control" id="inputEmail4" placeholder="Enter Your Email" name="email">
-        <div class="error my-1 text-danger">
-          <?php echo $_GET['email'] ?? ''; ?>
-        </div>
+        <?php if (!empty($emailError)) : ?>
+          <div class="alert alert-danger my-1 text-danger" role="alert">
+            <?php echo $emailError ?>
+          </div>
+        <?php endif; ?>
       </div>
       <div class="col-md-12 my-3">
         <label for="inputPassword4" class="form-label">Password</label>
         <input type="password" class="form-control" id="inputPassword4" placeholder="Enter Your Password" name="pass">
         <input type="password" class="form-control my-2" id="inputPassword4" placeholder="Re-Enter Your Password" name="repass">
-        <div class="error my-1 text-danger">
-          <?php echo $_GET['pass'] ?? ''; ?>
-        </div>
+        <?php if (!empty($passError)) : ?>
+          <div class="alert alert-danger my-1 text-danger" role="alert">
+            <?php echo $passError ?>
+          </div>
+        <?php endif; ?>
       </div>
       <div class="col-12 my-4 text-center">
-        <button type="submit" class="btn btn-dark" name="submit">Sign Up</button>
+        <button type="submit" class="btn btn-dark" name="submit" id="submit">Sign Up</button>
+        <?php if (!empty($signupSuccess)) : ?>
+          <div class="alert alert-success my-2 text-success" role="alert">
+            <strong>
+              <?php echo $signupSuccess ?>
+            </strong>
+          </div>
+        <?php endif; ?>
       </div>
     </div>
   </form>

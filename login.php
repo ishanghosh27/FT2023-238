@@ -15,7 +15,16 @@ include_once('nav.php');
 </head>
 
 <body>
-  <form class="row g-3 my-5" action="includes/login.inc.php" method="post">
+  <?php if (isset($_GET['loginerror'])) : ?>
+    <div class="alert alert-danger" role="alert">
+      <div class="container">
+        <strong>
+          <?php echo htmlspecialchars($_GET['loginerror']) ?? ''; ?>
+        </strong>
+      </div>
+    </div>
+  <?php endif; ?>
+  <form class="row g-3 my-5" action="a7/LoginValidation.php" method="post" id="loginform">
     <div class="mx-auto col-10 col-md-8 col-lg-6">
       <div class="col-auto">
         <label class="form-label" for="autoSizingInputGroup">Username</label>
@@ -32,8 +41,15 @@ include_once('nav.php');
         <label for="inputPassword4" class="form-label">Password</label>
         <input type="password" class="form-control" id="inputPassword4" placeholder="Enter Your Password" name="pass">
       </div>
-      <div class="col-12 my-4 text-center">
+      <div class="col-12 mt-4 text-center">
         <button type="submit" class="btn btn-dark" name="submit">Login</button>
+      </div>
+      <div class="col-12 my-3 text-center">
+        <a href="forgotpass.php" class="link-light link-offset-2 link-underline link-underline-opacity-0">
+        <button type="button" class="btn btn-dark" name="forgot">
+            Forgot Password
+          </button>
+        </a>
       </div>
     </div>
   </form>

@@ -1,13 +1,20 @@
 <?php
 
 include_once('nav.php');
+// require_once('a7/LoginValidation.php');
+
+session_start();
+if (!isset($_SESSION['username']) && !isset($_SESSION['email']) && !isset($_SESSION['pass'])) {
+  $loginError = "Please Enter Correct Login Credentials!";
+  header("location: login.php?loginerror=" . urlencode($loginError));
+  exit();
+}
 
 ?>
-
 <div class="container">
   <div class="row my-5">
-    <div class="col-sm-4 text-center">
-      <a href="a1/a1.php" target="_blank" class="btn">
+    <div class="col-sm-4 text-center d-flex justify-content-center align-items-end">
+      <a href="a1/a1.php" class="btn">
         <div class="card" style="width: 20rem;">
           <div class="card-body">
             <h5 class="card-title my-2">Assignment 1</h5>
@@ -16,8 +23,8 @@ include_once('nav.php');
         </div>
       </a>
     </div>
-    <div class="col-sm-4 text-center">
-      <a href="a2/a2.php" target="_blank" class="btn">
+    <div class="col-sm-4 text-center d-flex justify-content-center align-items-end">
+      <a href="a2/a2.php" class="btn">
         <div class="card" style="width: 20rem;">
           <div class="card-body">
             <h5 class="card-title my-2">Assignment 2</h5>
@@ -26,8 +33,8 @@ include_once('nav.php');
         </div>
       </a>
     </div>
-    <div class="col-sm-4 text-center">
-      <a href="a3/a3.php" target="_blank" class="btn">
+    <div class="col-sm-4 text-center d-flex justify-content-center align-items-end">
+      <a href="a3/a3.php" class="btn">
         <div class="card" style="width: 20rem;">
           <div class="card-body">
             <h5 class="card-title my-2">Assignment 3</h5>
@@ -38,8 +45,8 @@ include_once('nav.php');
     </div>
   </div>
   <div class="row my-5">
-    <div class="col-sm-4 text-center">
-      <a href="a4/a4.php" target="_blank" class="btn">
+    <div class="col-sm-4 text-center d-flex justify-content-center align-items-start">
+      <a href="a4/a4.php" class="btn">
         <div class="card" style="width: 20rem;">
           <div class="card-body">
             <h5 class="card-title my-2">Assignment 4</h5>
@@ -48,8 +55,8 @@ include_once('nav.php');
         </div>
       </a>
     </div>
-    <div class="col-sm-4 text-center">
-      <a href="a5/a5.php" target="_blank" class="btn">
+    <div class="col-sm-4 text-center d-flex justify-content-center align-items-start">
+      <a href="a5/a5.php" class="btn">
         <div class="card" style="width: 20rem;">
           <div class="card-body">
             <h5 class="card-title my-2">Assignment 5</h5>
@@ -58,8 +65,8 @@ include_once('nav.php');
         </div>
       </a>
     </div>
-    <div class="col-sm-4 text-center">
-      <a href="a6/a6.php" target="_blank" class="btn">
+    <div class="col-sm-4 text-center d-flex justify-content-center align-items-start">
+      <a href="a6/a6.php" class="btn">
         <div class="card" style="width: 20rem;">
           <div class="card-body">
             <h5 class="card-title my-2">Assignment 6</h5>

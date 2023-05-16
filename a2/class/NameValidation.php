@@ -55,9 +55,4 @@ class NameValidation
   }
 }
 
-// if (isset($_POST['submit'])) {
-//   $nameVal = new NameValidation();
-// }
-
-
 ?>

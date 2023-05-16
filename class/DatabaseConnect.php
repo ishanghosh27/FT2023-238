@@ -1,12 +1,13 @@
 <?php
 
-include_once('../config/DataConfig.php');
+require_once(dirname(__FILE__) . '/../config/DataConfig.php');
 
 /**
- * DatabaseConnect - This class inherits data from DataConfig class and connects to database
+ * DatabaseConnect - This class inherits data from DataConfig class and connects
+ * to database
  */
 class DatabaseConnect extends DataConfig {
-  private $conn;
+  protected $conn;
   /**
    * Method __construct
    *
@@ -26,7 +27,8 @@ class DatabaseConnect extends DataConfig {
    * Method createDatabase
    *
    * @return void
-   *  Checks whether database already exists or not, and then creates database and displays success/failure response in browser window
+   *  Checks whether database already exists or not, and then creates database
+   * and displays success/failure response in browser window
    */
   public function createDatabase() {
     $result = $this->conn->query("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '" . $this->getName() . "'");
@@ -35,34 +37,35 @@ class DatabaseConnect extends DataConfig {
       return $this->createTable();
     }
     else {
-      $sql = "CREATE DATABASE" .$this->getName();
+      $sql = "CREATE DATABASE " .$this->getName();
       if ($this->conn->query($sql) === TRUE) {
         return $this->createTable();
       }
       else {
         echo " Error creating database: " . $this->conn->error;
       }
-      $this->conn->close();
     }
   }
   /**
    * Method createTable
    *
    * @return void
-   *  Creates table with all the input data from signup page inside the database and displays success/failure response in browser window
+   *  Creates table with all the input data from signup page inside the database
+   * and displays success/failure response in browser window
    */
   public function createTable() {
-    $result = $this->conn->query("SHOW TABLES LIKE 'mytable'");
+    $result = $this->conn->query("SHOW TABLES LIKE 'signup'");
     if ($result->num_rows > 0) {
       echo " Table already exists! ";
     }
     else {
-      $sql = "CREATE TABLE mytable (
+      $sql = "CREATE TABLE signup (
               userId INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
               userName VARCHAR(120) NOT NULL,
-              firstName VARCHAR(30) NOT NULL,
-              lastName VARCHAR(30) NOT NULL,
-              userEmail VARCHAR(80) NOT NULL,
+              firstName VARCHAR(60) NOT NULL,
+              lastName VARCHAR(60) NOT NULL,
+              phoneNum VARCHAR(60) NOT NULL,
+              userEmail VARCHAR(120) NOT NULL,
               userPass VARCHAR(120) NOT NULL
           )";
       if ($this->conn->query($sql) === TRUE) {
@@ -71,9 +74,19 @@ class DatabaseConnect extends DataConfig {
       else {
         echo " Error creating table: " . $this->conn->error;
       }
-      $this->conn->close();
     }
   }
+
+  public function insertData($userName, $fName, $lName, $phone, $email, $pwd) {
+    $sql_in = "INSERT INTO signup (userName, firstName, lastName, phoneNum, userEmail, userPass) VALUES ('$userName', '$fName', '$lName', '$phone', '$email', '$pwd')";
+    if ($this->conn->query($sql_in) == TRUE) {
+      echo " Data Inserted Successfully ";
+    }
+    else {
+      echo " Unable To Insert Data " . $this->conn->error;
+    }
+  }
+
 
 }
 

@@ -46,7 +46,7 @@ $imageError = $imgerror['image'] ?? '';
     <div class="row my-3">
       <div class="col-sm-12">
         <label class="form-label" for="customFile">Upload Profile Picture</label>
-        <input type="file" class="form-control" id="image" class="image">
+        <input type="file" class="form-control" id="image" class="image" name="image">
         <?php if (!empty($imageError)) : ?>
           <div class="alert alert-danger my-1 text-danger" role="alert">
             <?php echo $imageError ?>
