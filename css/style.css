@@ -1,0 +1,13 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.current {
+    color:white;
+}
+
+.card:hover {
+    box-shadow: 0 15px 10px -10px rgba(31, 31, 31, 0.5);
+    transform: scale(1.05);
+    transition: all 0.3s ease;
+}
