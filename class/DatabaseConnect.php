@@ -8,11 +8,12 @@ require_once(dirname(__FILE__) . '/../config/DataConfig.php');
  */
 class DatabaseConnect extends DataConfig {
   protected $conn;
+
   /**
    * Method __construct
    *
-   * @return void
-   *  Connects to mysql database and throws error if failed
+   *   @return void
+   *     Connects to mysql database and throws error if failed
    */
   public function __construct() {
     $this->conn = new mysqli($this->getHost(), $this->getUsername(), $this->getPassword(), $this->getName());
@@ -23,12 +24,13 @@ class DatabaseConnect extends DataConfig {
       echo " Connected Successfully! ";
     }
   }
+
   /**
    * Method createDatabase
    *
-   * @return void
-   *  Checks whether database already exists or not, and then creates database
-   * and displays success/failure response in browser window
+   *   @return void
+   *     Checks whether database already exists or not, and then creates database
+   *     and displays success/failure response in browser window.
    */
   public function createDatabase() {
     $result = $this->conn->query("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '" . $this->getName() . "'");
@@ -36,22 +38,20 @@ class DatabaseConnect extends DataConfig {
       echo " Database already exists! ";
       return $this->createTable();
     }
-    else {
-      $sql = "CREATE DATABASE " .$this->getName();
-      if ($this->conn->query($sql) === TRUE) {
-        return $this->createTable();
-      }
-      else {
-        echo " Error creating database: " . $this->conn->error;
-      }
+    $sql = "CREATE DATABASE " . $this->getName();
+    if ($this->conn->query($sql)) {
+      return $this->createTable();
     }
+    echo " Error creating database: " . $this->conn->error;
   }
+
   /**
-   * Method createTable
+   * This function is used to create signup table if not created then error will
+   * be shown.
    *
-   * @return void
-   *  Creates table with all the input data from signup page inside the database
-   * and displays success/failure response in browser window
+   *   @return void
+   *     Creates table with all the input data from signup page inside the database
+   *     and displays success/failure response in browser window.
    */
   public function createTable() {
     $result = $this->conn->query("SHOW TABLES LIKE 'signup'");
@@ -68,7 +68,7 @@ class DatabaseConnect extends DataConfig {
               userEmail VARCHAR(120) NOT NULL,
               userPass VARCHAR(120) NOT NULL
           )";
-      if ($this->conn->query($sql) === TRUE) {
+      if ($this->conn->query($sql)) {
         echo " Table created successfully ";
       }
       else {
@@ -77,7 +77,21 @@ class DatabaseConnect extends DataConfig {
     }
   }
 
-  public function insertData($userName, $fName, $lName, $phone, $email, $pwd) {
+  /**
+   * Method insertData
+   *
+   *   @param string $userName
+   *     Stores the username.
+   *   @param string $fName
+   *     Stores the first name.
+   * @param string $lName [explicite description]
+   * @param $phone $phone [explicite description]
+   * @param string $email [explicite description]
+   * @param string $pwd [explicite description]
+   *
+   * @return void
+   */
+  public function insertData(string $userName, string $fName, string $lName, string $phone, string $email, string $pwd) {
     $sql_in = "INSERT INTO signup (userName, firstName, lastName, phoneNum, userEmail, userPass) VALUES ('$userName', '$fName', '$lName', '$phone', '$email', '$pwd')";
     if ($this->conn->query($sql_in) == TRUE) {
       echo " Data Inserted Successfully ";
@@ -86,7 +100,6 @@ class DatabaseConnect extends DataConfig {
       echo " Unable To Insert Data " . $this->conn->error;
     }
   }
-
 
 }
 

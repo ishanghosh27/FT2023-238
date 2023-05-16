@@ -2,6 +2,13 @@
 
 include_once('nav.php');
 
+session_start();
+if (isset($_SESSION['username']) && isset($_SESSION['email']) && isset($_SESSION['pass'])) {
+  $loginError = "User Is Already Logged In. Please Log Out In Order To Sign In New User";
+  header("location: login.php?loginerror=" . urlencode($loginError));
+  exit();
+}
+
 $uiderror = $_GET['uiderror'] ?? [];
 $fnameerror = $_GET['nameerror'] ?? [];
 $lnameerror = $_GET['nameerror'] ?? [];
@@ -30,14 +37,14 @@ $signupSuccess = $signup['submit'] ?? '';
   <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body>
-  <form class="row g-3 my-5" enctype="multipart/form-data" action="class/ValidateData.php" method="post" id="signupform">
+<body onload="populateForm()">
+  <form class="row g-3 my-5" enctype="multipart/form-data" action="class/ValidateData.php" method="post" id="form" onsubmit="storeFormData()">
     <div class="mx-auto col-10 col-md-8 col-lg-6">
       <div class="col-auto">
         <label class="visually-hidden" for="autoSizingInputGroup">Username</label>
         <div class="input-group">
           <div class="input-group-text">@</div>
-          <input type="text" class="form-control" id="autoSizingInputGroup" placeholder="Enter Your Username" name="username">
+          <input type="text" class="form-control" id="username" placeholder="Enter Your Username" name="username">
         </div>
         <?php if (!empty($uidError)) : ?>
           <div class="alert alert-danger my-1 text-danger" role="alert">
@@ -87,7 +94,7 @@ $signupSuccess = $signup['submit'] ?? '';
       </div>
       <div class="col-md-12 my-3">
         <label for="inputEmail4" class="form-label">Email</label>
-        <input type="email" class="form-control" id="inputEmail4" placeholder="Enter Your Email" name="email">
+        <input type="email" class="form-control" id="email" placeholder="Enter Your Email" name="email">
         <?php if (!empty($emailError)) : ?>
           <div class="alert alert-danger my-1 text-danger" role="alert">
             <?php echo $emailError ?>

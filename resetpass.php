@@ -2,6 +2,10 @@
 
 include_once('nav.php');
 
+$passerror = $_GET['resetpasserror'] ?? [];
+$passError = $passerror['pass'] ?? '';
+$email = $_GET['email'] ?? '';
+
 ?>
 
 <!doctype html>
@@ -15,23 +19,20 @@ include_once('nav.php');
 </head>
 
 <body>
-  <?php if (isset($_GET['forgoterror'])) : ?>
-    <div class="alert alert-danger" role="alert">
-      <div class="container">
-        <strong>
-          <?php echo htmlspecialchars($_GET['forgoterror']) ?? ''; ?>
-        </strong>
-      </div>
-    </div>
-  <?php endif; ?>
-  <form class="row g-3 my-4" action="class/ForgotPassword.php" method="post" id="form">
+  <form class="row g-3 my-4" action="class/ResetPassword.php" method="post" id="form">
     <div class="mx-auto col-10 col-md-8 col-lg-6">
       <div class="col-md-12 my-3">
-        <label for="inputEmail4" class="form-label">Email</label>
-        <input type="email" class="form-control" id="inputEmail4" placeholder="Enter Your Email" name="email">
+        <label for="inputPassword4" class="form-label">New Password</label>
+        <input type="password" class="form-control" id="inputPassword4" placeholder="Enter New Password" name="pass">
+        <input type="hidden" name="email" value="<?php echo htmlspecialchars($email); ?>">
       </div>
+      <?php if (!empty($passError)) : ?>
+        <div class="alert alert-danger my-1 text-danger" role="alert">
+          <?php echo $passError ?>
+        </div>
+      <?php endif; ?>
       <div class="col-12 mt-4 text-center">
-        <button type="submit" class="btn btn-dark" name="submit">Reset Password</button>
+        <button type="submit" class="btn btn-dark" name="submit">Update Password</button>
       </div>
     </div>
   </form>

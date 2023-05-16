@@ -24,7 +24,16 @@ include_once('nav.php');
       </div>
     </div>
   <?php endif; ?>
-  <form class="row g-3 my-5" action="a7/LoginValidation.php" method="post" id="loginform">
+  <?php if (isset($_GET['passreset'])) : ?>
+    <div class="alert alert-success" role="alert">
+      <div class="container">
+        <strong>
+          <?php echo htmlspecialchars($_GET['passreset']) ?? ''; ?>
+        </strong>
+      </div>
+    </div>
+  <?php endif; ?>
+  <form class="row g-3 my-5" action="a7/LoginValidation.php" method="post" id="form">
     <div class="mx-auto col-10 col-md-8 col-lg-6">
       <div class="col-auto">
         <label class="form-label" for="autoSizingInputGroup">Username</label>

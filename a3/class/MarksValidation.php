@@ -2,8 +2,10 @@
 
 require_once('ImageUpload.php');
 
-class MarksValidation extends ImageUpload
-{
+/**
+ *     Class to validate the input marks field. 
+ */
+class MarksValidation extends ImageUpload {
   private $marks;
   private $error = [];
   public function __construct()

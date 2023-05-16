@@ -21,7 +21,7 @@ $emailError = $emailerror['email'] ?? '';
   <link rel="stylesheet" href="../css/style.css">
 </head>
 
-<form class="row g-3 my-2" action="class/PDFValidation.php" enctype="multipart/form-data" method="post" id="a3form">
+<form class="row g-3 my-2" action="class/PDFValidation.php" enctype="multipart/form-data" method="post" id="form">
   <div class="mx-auto col-10 col-md-8 col-lg-6">
     <div class="row g-3 my-1">
       <div class="col-sm-6">

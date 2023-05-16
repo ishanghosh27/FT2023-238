@@ -20,3 +20,26 @@ lname.addEventListener("input", ()=> {
     fullname.value = fname.value + " " + lname.value
   }
 })
+
+function populateForm() {
+  var formData = JSON.parse(localStorage.getItem('formData'));
+      if (formData) {
+        document.getElementById('username').value = formData.username;
+        document.getElementById('fname').value = formData.fname;
+        document.getElementById('lname').value = formData.lname;
+        document.getElementById('phone').value = formData.phone;
+        document.getElementById('email').value = formData.email;
+      }
+
+}
+
+function storeFormData() {
+    var formData = {
+        username: document.getElementById('username').value,
+        fname: document.getElementById('fname').value,
+        lname: document.getElementById('lname').value,
+        phone: document.getElementById('phone').value,
+        email: document.getElementById('email').value,
+    };
+    localStorage.setItem('formData', JSON.stringify(formData));
+}

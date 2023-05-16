@@ -159,5 +159,6 @@ if (isset($_POST['submit'])) {
   $connection = new DatabaseConnect();
   $connection->createDatabase();
   $signup = new ValidateData();
-  $signup->enterData($userName, $fName, $lName, $phone, $email, $pwd);
+  $encryPass = base64_encode($pwd);
+  $signup->enterData($userName, $fName, $lName, $phone, $email, $encryPass);
 }

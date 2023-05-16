@@ -10,7 +10,8 @@ class LoginValidation extends DatabaseConnect {
     parent::__construct();
     $this->username = $_POST['username'];
     $this->email = $_POST['email'];
-    $this->password = $_POST['pass'];
+    $password = $_POST['pass'];
+    $this->password = base64_encode($password);
     $this->getLoginData();
   }
 
@@ -22,7 +23,7 @@ class LoginValidation extends DatabaseConnect {
       $_SESSION['username'] = $this->username;
       $_SESSION['email'] = $this->email;
       $_SESSION['pass'] = $this->password;
-      header("location: ../index.php"); 
+      header("location: ../index.php");
       exit();
     } else {
       $loginError = "Invalid Username, Email, or Password.";

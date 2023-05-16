@@ -2,8 +2,9 @@
 
 include_once('DatabaseConnect.php');
 include_once('../nav.php');
+require_once('../../vendor/autoload.php');
 
-class ForgotPassword extends DatabaseConnect{
+class ForgotPassword extends DatabaseConnect {
   private $email;
   public function __construct() {
     parent::__construct();
@@ -13,10 +14,9 @@ class ForgotPassword extends DatabaseConnect{
   public function forgotPass() {
     $sql = "SELECT userEmail FROM signup WHERE userEmail = '$this->email'";
     $result = $this->conn->query($sql);
-    if ($result->num_rows == 1) {
-      session_start();
-
-      header("location: ../login.php");
+    $value = $result->num_rows;
+    if ($value === 1) {
+      header("location: SendMail.php?email=" . urlencode($this->email));
       exit();
     }
     else {
